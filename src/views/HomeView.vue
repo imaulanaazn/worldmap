@@ -1,6 +1,6 @@
 <template>
-   <main class="text-light container-fluid row mx-0 px-0">
-     <div class="map col-md-9 col-sm-12 d-flex position-relative align-items-center justify-content-center">
+   <main class="text-light w-100 container-fluid row mx-0 px-0 position-relative overflow-hidden">
+     <div class="map col-md-9 col-sm-12 d-flex align-items-center justify-content-center overflow-auto">
       <svg
       ref="svg" 
       @mousemove="handleMouseMove"
@@ -9,9 +9,9 @@
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:svg="http://www.w3.org/2000/svg"
      xmlns="http://www.w3.org/2000/svg"
-     mapsvg:geoViewBox="-169.110266 83.600842 190.486279 -58.508473"
-     width="1009.6727"
-     height="665.96301">
+     viewBox="0 0 1009.6727 665.96301"
+     width="100%"
+     height="auto">
    
     <path
        d="m 479.68275,331.6274 -0.077,0.025 -0.258,0.155 -0.147,0.054 -0.134,0.027 -0.105,-0.011 -0.058,-0.091 0.006,-0.139 -0.024,-0.124 -0.02,-0.067 0.038,-0.181 0.086,-0.097 0.119,-0.08 0.188,0.029 0.398,0.116 0.083,0.109 10e-4,0.072 -0.073,0.119 z"
@@ -1045,15 +1045,16 @@
         </p>
       </div>
 
-      <div class="zoom-btn position-absolute">
-        <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1">
-          +
-        </button>
-        <button class="bg-transparent rounded-end-pill fs-4 fw-semibold lh-1">
-          -
-        </button>
-      </div>
-    </div>
+   </div>
+
+   <div class="zoom-btn position-absolute">
+     <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1">
+       +
+     </button>
+     <button class="bg-transparent rounded-end-pill fs-4 fw-semibold lh-1">
+       -
+     </button>
+   </div>
 
     <SidebarCountry class="col-md-3 col-sm-12"/>
   </main>
@@ -1105,20 +1106,25 @@
 
 <style scoped>
    main{
-      width: 100%;
       height: 100vh;
    }
-   .map .zoom-btn{
+
+   .zoom-btn{
       bottom: 2rem;
       left: 2rem;
    }
-   .map .zoom-btn button{
+   .zoom-btn button{
       width: 45px;
       height: 35px;
    }
-   .map .zoom-btn button:hover{
+   .zoom-btn button:hover{
       background-color: var(--complementary-color) !important;
       color: white;
+   }
+
+   svg{
+      transform-origin: top left;
+      transform: scale(1);
    }
   svg path:hover{
     fill: var(--secondary-color);
@@ -1130,6 +1136,7 @@
     stroke: var(--primary-color);
     stroke-width: 0.5px;
   }
+  
   .cursor {
     transform: translateX(-50%);
     color: aquamarine;
