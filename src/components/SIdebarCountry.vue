@@ -21,7 +21,6 @@ import SearchBar from '../components/SearchBar.vue';
                 <img src="/indonesia.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
         </div>
-        
     </aside>
 </template>
 

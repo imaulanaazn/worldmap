@@ -1,6 +1,6 @@
 <template>
-  <main class="text-light container-fluid row mx-0 px-0">
-   <div class="map col-9 d-flex align-items-center justify-content-center">
+   <main class="text-light container-fluid row mx-0 px-0">
+     <div class="map col-md-9 col-sm-12 d-flex position-relative align-items-center justify-content-center">
       <svg
       ref="svg" 
       @mousemove="handleMouseMove"
@@ -1041,15 +1041,24 @@
 
       <div v-if="hoveredPathTitle" class="cursor rounded-1 position-fixed" :style="{ top: mouseY + 50 + 'px', left: mouseX  + 'px' }">
         <p class="py-2 px-4 mb-0 fw-semibold">
-           {{hoveredPathTitle}}
+          {{hoveredPathTitle}}
         </p>
       </div>
-   </div>
 
+      <div class="zoom-btn position-absolute">
+        <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1">
+          +
+        </button>
+        <button class="bg-transparent rounded-end-pill fs-4 fw-semibold lh-1">
+          -
+        </button>
+      </div>
+    </div>
 
-   <SidebarCountry class="col-3 "/>
+    <SidebarCountry class="col-md-3 col-sm-12"/>
   </main>
 </template>
+
 
 <script>
    import SidebarCountry from '../components/SIdebarCountry.vue';
@@ -1098,6 +1107,18 @@
    main{
       width: 100%;
       height: 100vh;
+   }
+   .map .zoom-btn{
+      bottom: 2rem;
+      left: 2rem;
+   }
+   .map .zoom-btn button{
+      width: 45px;
+      height: 35px;
+   }
+   .map .zoom-btn button:hover{
+      background-color: var(--complementary-color) !important;
+      color: white;
    }
   svg path:hover{
     fill: var(--secondary-color);
