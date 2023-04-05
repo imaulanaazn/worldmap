@@ -1,13 +1,10 @@
+<script setup>
+import SearchBar from '../components/SearchBar.vue';
+</script>
+
 <template>
     <aside class="sidebar shadow-medium text-black overflow-y-scroll">
-        <nav class="navbar bg-body-tertiary my-4">
-            <div class="container-fluid px-0">
-                <form class="d-flex gap-3 w-100" role="search">
-                <input class="form-control pl-0" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn pr-0 text-white" type="submit">O</button>
-                </form>
-            </div>
-        </nav>
+        <SearchBar />
 
         <div class="countries">
             <div class="country-card w-100 position-relative my-2 rounded-3 overflow-hidden indonesia">
@@ -24,6 +21,7 @@
                 <img src="/indonesia.jpg" alt="" class="w-100 h-100 object-fit-cover">
             </div>
         </div>
+        
     </aside>
 </template>
 
@@ -49,12 +47,5 @@
     }
     aside .countries .country-card img{
         filter: brightness(.4);
-    }
-
-    nav .container-fluid button, input{
-        border: 2px solid var(--complementary-color);
-    }
-    nav .container-fluid button{
-        background-color: var(--complementary-color);
     }
 </style>
