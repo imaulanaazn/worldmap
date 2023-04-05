@@ -1061,46 +1061,100 @@
 </template>
 
 
-<script>
+<!-- <script>
    import SidebarCountry from '../components/SIdebarCountry.vue';
-  import { ref, onMounted, computed } from 'vue'
+   import { ref, onMounted, computed } from 'vue'
 
-  export default {
-    setup() {
+   export default {
+      setup() {
       const mouseX = ref(0)
       const mouseY = ref(0)
       const svg = ref(null)
       const state = ref('')
+      const mapScale = ref(1)
 
       const handleMouseMove = (event) => {
-        mouseX.value = event.clientX
-        mouseY.value = event.clientY
-        const target = event.target
-        if (target.tagName === 'path' && target.getAttribute('title')) {
-          state.value = target.getAttribute('title')
-        } else {
-          state.value = ''
-        }
+         mouseX.value = event.clientX
+         mouseY.value = event.clientY
+         const target = event.target
+         if (target.tagName === 'path' && target.getAttribute('title')) {
+            state.value = target.getAttribute('title')
+         } else {
+            state.value = ''
+         }
       }
 
       onMounted(() => {
-        document.addEventListener('mousemove', handleMouseMove)
+         document.addEventListener('mousemove', handleMouseMove)
       })
 
       const hoveredPathTitle = computed(() => state.value)
 
       return {
-        mouseX,
-        mouseY,
-        svg,
-        hoveredPathTitle,
-        handleMouseMove,
+         mapScale,
+         mouseX,
+         mouseY,
+         svg,
+         hoveredPathTitle,
+         handleMouseMove,
       }
-    },
-    components: {
+      },
+      components: {
       SidebarCountry:SidebarCountry
-    }
-  }
+      }
+   }
+</script> -->
+<script>
+   import SidebarCountry from '../components/SidebarCountry.vue'
+   import { ref, onMounted, computed } from 'vue'
+
+   export default {
+      setup() {
+         const mouseX = ref(0)
+         const mouseY = ref(0)
+         const svg = ref(null)
+         const state = ref('')
+         const mapScale = ref(1)
+
+         const handleMouseMove = (event) => {
+            mouseX.value = event.clientX
+            mouseY.value = event.clientY
+            const target = event.target
+            if (target.tagName === 'path' && target.getAttribute('title')) {
+               state.value = target.getAttribute('title')
+            } else {
+               state.value = ''
+            }
+         }
+
+         onMounted(() => {
+            document.addEventListener('mousemove', (event) => {
+               mouseX.value = event.clientX
+               mouseY.value = event.clientY
+               const target = event.target
+               if (target.tagName === 'path' && target.getAttribute('title')) {
+                  state.value = target.getAttribute('title')
+               } else {
+                  state.value = ''
+               }
+            })
+         })
+
+         const hoveredPathTitle = computed(() => state.value)
+
+         return {
+            mapScale,
+            mouseX,
+            mouseY,
+            svg,
+            hoveredPathTitle,
+            handleMouseMove,
+         }
+      },
+      components: {
+         SidebarCountry,
+      },
+   }
 </script>
 
 
@@ -1136,7 +1190,7 @@
     stroke: var(--primary-color);
     stroke-width: 0.5px;
   }
-  
+
   .cursor {
     transform: translateX(-50%);
     color: aquamarine;
