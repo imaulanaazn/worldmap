@@ -11,7 +11,9 @@
      xmlns="http://www.w3.org/2000/svg"
      viewBox="0 0 1009.6727 665.96301"
      width="100%"
-     height="auto">
+     height="auto"
+     :style="{ transform: `scale(${mapScale})` }"
+     >
    
     <path
        d="m 479.68275,331.6274 -0.077,0.025 -0.258,0.155 -0.147,0.054 -0.134,0.027 -0.105,-0.011 -0.058,-0.091 0.006,-0.139 -0.024,-0.124 -0.02,-0.067 0.038,-0.181 0.086,-0.097 0.119,-0.08 0.188,0.029 0.398,0.116 0.083,0.109 10e-4,0.072 -0.073,0.119 z"
@@ -1048,10 +1050,10 @@
    </div>
 
    <div class="zoom-btn position-absolute">
-     <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1">
+     <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1" @click="handleZoom('+')">
        +
      </button>
-     <button class="bg-transparent rounded-end-pill fs-4 fw-semibold lh-1">
+     <button class="bg-transparent rounded-end-pill fs-4 fw-semibold lh-1" @click="handleZoom('-')">
        -
      </button>
    </div>
@@ -1060,50 +1062,6 @@
   </main>
 </template>
 
-
-<!-- <script>
-   import SidebarCountry from '../components/SIdebarCountry.vue';
-   import { ref, onMounted, computed } from 'vue'
-
-   export default {
-      setup() {
-      const mouseX = ref(0)
-      const mouseY = ref(0)
-      const svg = ref(null)
-      const state = ref('')
-      const mapScale = ref(1)
-
-      const handleMouseMove = (event) => {
-         mouseX.value = event.clientX
-         mouseY.value = event.clientY
-         const target = event.target
-         if (target.tagName === 'path' && target.getAttribute('title')) {
-            state.value = target.getAttribute('title')
-         } else {
-            state.value = ''
-         }
-      }
-
-      onMounted(() => {
-         document.addEventListener('mousemove', handleMouseMove)
-      })
-
-      const hoveredPathTitle = computed(() => state.value)
-
-      return {
-         mapScale,
-         mouseX,
-         mouseY,
-         svg,
-         hoveredPathTitle,
-         handleMouseMove,
-      }
-      },
-      components: {
-      SidebarCountry:SidebarCountry
-      }
-   }
-</script> -->
 <script>
    import SidebarCountry from '../components/SidebarCountry.vue'
    import { ref, onMounted, computed } from 'vue'
@@ -1127,6 +1085,15 @@
             }
          }
 
+         const handleZoom = (operation)=>{
+            if(operation === '+'){
+               mapScale.value += 0.1 
+               console.log(mapScale.value);
+            }else{
+               mapScale.value -= 0.1 
+            }
+         }
+
          onMounted(() => {
             document.addEventListener('mousemove', (event) => {
                mouseX.value = event.clientX
@@ -1140,14 +1107,14 @@
             })
          })
 
-         const hoveredPathTitle = computed(() => state.value)
 
          return {
             mapScale,
+            handleZoom,
             mouseX,
             mouseY,
             svg,
-            hoveredPathTitle,
+            hoveredPathTitle : computed(() => state.value),
             handleMouseMove,
          }
       },
@@ -1178,7 +1145,6 @@
 
    svg{
       transform-origin: top left;
-      transform: scale(1);
    }
   svg path:hover{
     fill: var(--secondary-color);
