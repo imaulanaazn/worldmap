@@ -1,6 +1,6 @@
 <template>
    <main class="text-light w-100 container-fluid row mx-0 px-0 position-relative overflow-hidden">
-     <div class="map col-md-9 col-sm-12 d-flex align-items-center justify-content-center overflow-auto">
+     <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto">
       <svg
       ref="svg" 
       @mousemove="handleMouseMove"
@@ -1049,7 +1049,7 @@
 
    </div>
 
-   <div class="zoom-btn position-absolute">
+   <div class="zoom-btn d-flex position-md-absolute m-md-0 my-2">
      <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1" @click="handleZoom('+')">
        +
      </button>
@@ -1058,7 +1058,7 @@
      </button>
    </div>
 
-    <SidebarCountry class="col-md-3 col-sm-12"/>
+    <SidebarCountry class="col-lg-3 col-12"/>
   </main>
 </template>
 
@@ -1088,7 +1088,6 @@
          const handleZoom = (operation)=>{
             if(operation === '+'){
                mapScale.value += 0.1 
-               console.log(mapScale.value);
             }else{
                mapScale.value -= 0.1 
             }
@@ -1106,7 +1105,6 @@
                }
             })
          })
-
 
          return {
             mapScale,
@@ -1135,8 +1133,8 @@
       left: 2rem;
    }
    .zoom-btn button{
-      width: 45px;
-      height: 35px;
+      width: 35px;
+      height: 30px;
    }
    .zoom-btn button:hover{
       background-color: var(--complementary-color) !important;
@@ -1146,21 +1144,36 @@
    svg{
       transform-origin: top left;
    }
-  svg path:hover{
-    fill: var(--secondary-color);
-    cursor: pointer;
-  }
-  svg path{
-    fill: var(--complementary-color);
-    cursor: pointer;
-    stroke: var(--primary-color);
-    stroke-width: 0.5px;
-  }
+   svg path:hover{
+      fill: var(--secondary-color);
+      cursor: pointer;
+   }
+   svg path{
+      fill: var(--complementary-color);
+      cursor: pointer;
+      stroke: var(--primary-color);
+      stroke-width: 0.5px;
+   }
 
-  .cursor {
-    transform: translateX(-50%);
-    color: aquamarine;
-    background-color: var(--secondary-color);
-    z-index: 9999;
-  }
+   .cursor {
+      transform: translateX(-50%);
+      color: aquamarine;
+      background-color: var(--secondary-color);
+      z-index: 9999;
+   }
+
+  @media screen and (min-width: 768px) {
+     .zoom-btn button{
+        width: 45px;
+        height: 35px;
+      }
+      
+      
+   }
+
+   @media screen and (min-width: 1024px) {
+   .zoom-btn{
+      position: absolute;
+      }
+   }
 </style>
