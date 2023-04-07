@@ -1,17 +1,17 @@
 <template>
-    <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto">
+    <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto" ref="mapContainer"  v-on:mouseup="mouseup" @mousedown="mousedown" @mousemove="mousemove">
          <svg
          ref="svg" 
          @mousemove="handleMouseMove"
-      xmlns:mapsvg="http://mapsvg.com"
-      xmlns:dc="http://purl.org/dc/elements/1.1/"
-      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-      xmlns:svg="http://www.w3.org/2000/svg"
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 1009.6727 665.96301"
-      width="100%"
-      height="auto"
-      :style="{ transform: `scale(${mapScale})` }"
+         xmlns:mapsvg="http://mapsvg.com"
+         xmlns:dc="http://purl.org/dc/elements/1.1/"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:svg="http://www.w3.org/2000/svg"
+         xmlns="http://www.w3.org/2000/svg"
+         viewBox="0 0 1009.6727 665.96301"
+         width="100%"
+         height="auto"
+         :style="{ transform: `scale(${mapScale})` }"
       >
       
       <path
@@ -1054,10 +1054,14 @@
    export default {
       props: ['mapScale'],
       setup() {
+         const mapContainer = ref(null)
          const mouseX = ref(0)
          const mouseY = ref(0)
          const svg = ref(null)
          const state = ref('')
+         let isDragging = false;
+         let startPosition = [0, 0];
+         let delta = [0, 0];
 
          const handleMouseMove = (event) => {
             mouseX.value = event.clientX
@@ -1083,7 +1087,31 @@
             })
          })
 
+         function mousedown (event) {
+            isDragging = true;
+            startPosition = [event.clientX, event.clientY];
+         }
+         
+         function mouseup () {
+            isDragging = false;
+         }
+
+         function mousemove (event) {
+            if (isDragging) {
+               delta = [event.clientX - startPosition[0], event.pageY - startPosition[1]];
+               mapContainer.value.scrollLeft -= delta[0];
+               mapContainer.value.scrollTop -= delta[1];
+               startPosition = [event.clientX, event.pageY];
+            }
+         }
+
+
+
          return {
+            mapContainer,
+            mouseup,
+            mousedown,
+            mousemove,
             mouseX,
             mouseY,
             svg,
@@ -1095,6 +1123,10 @@
 </script>
 
 <style scoped>
+   .map:hover{
+      cursor: pointer;
+      scroll-behavior: smooth;
+   }
    svg{
       transform-origin: top left;
       transition: .2s ease-out all;
@@ -1109,7 +1141,6 @@
       stroke: var(--primary-color);
       stroke-width: 0.5px;
    }
-
    .cursor {
       transform: translateX(-50%);
       color: aquamarine;
