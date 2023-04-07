@@ -1,5 +1,5 @@
 <template>
-   <main class="text-light w-100 container-fluid row mx-0 px-0 position-relative overflow-hidden">
+   <main class="text-light w-100 container-fluid row mx-0 px-0 position-relative overflow-y-scroll overflow-x-hidden overflow-lg-hidden">
      <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto">
       <svg
       ref="svg" 
@@ -1049,7 +1049,7 @@
 
    </div>
 
-   <div class="zoom-btn d-flex position-md-absolute m-md-0 my-2">
+   <div class="zoom-btn w-auto d-flex position-md-absolute m-md-0 my-2">
      <button class="bg-transparent rounded-start-pill me-1 fs-4 fw-semibold lh-1" @click="handleZoom('+')">
        +
      </button>
@@ -1168,12 +1168,13 @@
         width: 45px;
         height: 35px;
       }
-      
-      
    }
 
    @media screen and (min-width: 1024px) {
-   .zoom-btn{
+      main{
+         overflow: hidden !important;
+      }
+      .zoom-btn{
       position: absolute;
       }
    }
