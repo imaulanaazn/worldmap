@@ -7,7 +7,7 @@ import SearchBar from '../components/SearchBar.vue';
         <SearchBar />
 
         <div class="countries">
-            <div class="country-card w-100 position-relative my-2 rounded-3 overflow-hidden indonesia">
+            <div class="country-card w-50 w-md-50 w-lg-100 position-relative my-2 rounded-3 overflow-hidden indonesia">
                 <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
                     <div class="country-card__text__top">
                         <h3>Indonesia</h3>
@@ -23,6 +23,7 @@ import SearchBar from '../components/SearchBar.vue';
         </div>
     </aside>
 </template>
+
 
 <style scoped>
     aside{

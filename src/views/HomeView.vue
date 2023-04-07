@@ -1143,6 +1143,7 @@
 
    svg{
       transform-origin: top left;
+      transition: .2s ease-out all;
    }
    svg path:hover{
       fill: var(--secondary-color);
