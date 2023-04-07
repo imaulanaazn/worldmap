@@ -1,13 +1,26 @@
 <script setup>
-import SearchBar from '../components/SearchBar.vue';
+import SearchBar from './SearchBar.vue';
 </script>
 
 <template>
     <aside class="sidebar shadow-medium text-black overflow-y-scroll">
         <SearchBar />
 
-        <div class="countries">
-            <div class="country-card w-50 w-md-50 w-lg-100 position-relative my-2 rounded-3 overflow-hidden indonesia">
+        <div class="countries d-flex flex-column flex-md-row flex-lg-column flex-wrap">
+            <div class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
+                <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
+                    <div class="country-card__text__top">
+                        <h3>Indonesia</h3>
+                        <p>Asia</p>
+                    </div>
+                    <div class="country-card__text__bottom d-flex align-items-center justify-content-between">
+                        <p>Jakarta</p>
+                        <a href="/#" class="text-decoration-none fs-5 d-flex align-items-center justify-content-center rounded-circle">></a>
+                    </div>
+                </div>
+                <img src="/indonesia.jpg" alt="" class="w-100 h-100 object-fit-cover">
+            </div>
+            <div class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
                 <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
                     <div class="country-card__text__top">
                         <h3>Indonesia</h3>
@@ -24,10 +37,12 @@ import SearchBar from '../components/SearchBar.vue';
     </aside>
 </template>
 
-
 <style scoped>
     aside{
-        height: 100vh;
+        height: auto;
+    }
+    aside .countries{
+        gap: 2%;
     }
     aside .countries .country-card {
         height: 240px;
@@ -47,5 +62,19 @@ import SearchBar from '../components/SearchBar.vue';
     }
     aside .countries .country-card img{
         filter: brightness(.4);
+    }
+
+    @media screen and (min-width: 768px) {
+        .countries .country-card{
+            width: 49% !important;
+        }
+    }
+    @media screen and (min-width: 1024px) {
+        aside{
+            height: 100vh;
+        }
+        .countries .country-card{
+            width: 100% !important;
+        }
     }
 </style>
