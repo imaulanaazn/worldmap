@@ -3,39 +3,65 @@ import SearchBar from './SearchBar.vue';
 </script>
 
 <template>
-    <aside class="sidebar shadow-medium text-black overflow-y-scroll">
+    <aside class="sidebar shadow-medium text-black overflow-y-scroll pb-4" ref="container" @scroll="handleScroll" >
         <SearchBar />
 
-        <div class="countries d-flex flex-column flex-md-row flex-lg-column flex-wrap">
-            <div class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
+        <div class="countries d-flex flex-column flex-md-row flex-lg-column flex-wrap" >
+            <div v-for="card in cards" :key="card.countryId" class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
                 <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
                     <div class="country-card__text__top">
-                        <h3>Indonesia</h3>
-                        <p>Asia</p>
+                        <h3>{{ card.title }}</h3>
+                        <p>{{ card.countryId }}</p>
                     </div>
                     <div class="country-card__text__bottom d-flex align-items-center justify-content-between">
                         <p>Jakarta</p>
                         <a href="/#" class="text-decoration-none fs-5 d-flex align-items-center justify-content-center rounded-circle">></a>
                     </div>
                 </div>
-                <img src="/indonesia.jpg" alt="" class="w-100 h-100 object-fit-cover">
-            </div>
-            <div class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
-                <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
-                    <div class="country-card__text__top">
-                        <h3>Indonesia</h3>
-                        <p>Asia</p>
-                    </div>
-                    <div class="country-card__text__bottom d-flex align-items-center justify-content-between">
-                        <p>Jakarta</p>
-                        <a href="/#" class="text-decoration-none fs-5 d-flex align-items-center justify-content-center rounded-circle">></a>
-                    </div>
-                </div>
-                <img src="/indonesia.jpg" alt="" class="w-100 h-100 object-fit-cover">
+                <img :src="card.img" alt="" class="w-100 h-100 object-fit-cover">
             </div>
         </div>
     </aside>
 </template>
+
+<script>
+    import cardData from '../data';
+
+    export default {
+        data() {
+            return {
+            cards: [],
+            startIndex: 0,
+            endIndex: 9,
+            };
+        },
+        created() {
+            // Load the first batch of cards on component creation
+            this.loadCards();
+        },
+        methods: {
+            loadCards() {
+            // Add the new cards to the existing ones
+            this.cards = [...this.cards, ...cardData.slice(this.startIndex, this.endIndex + 1)];
+
+            // Update the start and end indexes
+            this.startIndex = this.endIndex + 1;
+            this.endIndex += 10;
+            },
+            handleScroll(event) {
+            // Check if the user has scrolled to the bottom of the container
+            const scrollTop = event.target.scrollTop;
+            const scrollHeight = event.target.scrollHeight;
+            const containerHeight = event.target.clientHeight;
+
+            if (scrollTop + containerHeight >= scrollHeight - 10) {
+                // Load the next batch of cards
+                this.loadCards();
+            }
+            },
+        },
+    }
+</script>
 
 <style scoped>
     aside{
