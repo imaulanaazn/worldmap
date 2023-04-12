@@ -18,7 +18,7 @@ import SearchBar from './SearchBar.vue';
                         <a href="/#" class="text-decoration-none fs-5 d-flex align-items-center justify-content-center rounded-circle">></a>
                     </div>
                 </div>
-                <img :src="card.img" alt="" class="w-100 h-100 object-fit-cover">
+                <img :src="card.img" v-lazy="card.img" lazy-placeholder="/loading.gif"  alt="" class="w-100 h-100 object-fit-cover">
             </div>
         </div>
     </aside>
