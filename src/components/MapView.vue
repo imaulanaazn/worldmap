@@ -10,7 +10,7 @@
          xmlns="http://www.w3.org/2000/svg"
          viewBox="0 0 1009.6727 665.96301"
          width="100%"
-         height="auto"
+         height="100%"
          :style="{ transform: `scale(${mapScale})` }"
       >
       
@@ -1104,8 +1104,6 @@
                startPosition = [event.clientX, event.pageY];
             }
          }
-
-
 
          return {
             mapContainer,

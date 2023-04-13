@@ -1,5 +1,6 @@
 <script setup>
 import SearchBar from './SearchBar.vue';
+import CountryCard from './CountryCard.vue';
 </script>
 
 <template>
@@ -8,19 +9,9 @@ import SearchBar from './SearchBar.vue';
 
         <div class="countries d-flex flex-column flex-md-row flex-lg-column flex-wrap" >
             <div v-for="card in cards" :key="card.countryId" class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
-                <div class="country-card__text w-100 h-100 d-flex flex-column justify-content-between text-white position-absolute z-3 p-4">
-                    <div class="country-card__text__top">
-                        <h3>{{ card.title }}</h3>
-                        <p>{{ card.countryId }}</p>
-                    </div>
-                    <div class="country-card__text__bottom d-flex align-items-center justify-content-between">
-                        <p>Jakarta</p>
-                        <a href="/#" class="text-decoration-none fs-5 d-flex align-items-center justify-content-center rounded-circle">></a>
-                    </div>
-                </div>
-                <img :src="card.img" v-lazy="card.img" lazy-placeholder="/loading.gif"  alt="" class="w-100 h-100 object-fit-cover">
+                <CountryCard :card="card"/>
             </div>
-        </div>
+        </div>  
     </aside>
 </template>
 
@@ -32,7 +23,7 @@ import SearchBar from './SearchBar.vue';
             return {
             cards: [],
             startIndex: 0,
-            endIndex: 9,
+            endIndex: 2,
             };
         },
         created() {
@@ -46,15 +37,16 @@ import SearchBar from './SearchBar.vue';
 
             // Update the start and end indexes
             this.startIndex = this.endIndex + 1;
-            this.endIndex += 10;
+            this.endIndex += 1;
             },
+
             handleScroll(event) {
             // Check if the user has scrolled to the bottom of the container
             const scrollTop = event.target.scrollTop;
             const scrollHeight = event.target.scrollHeight;
             const containerHeight = event.target.clientHeight;
 
-            if (scrollTop + containerHeight >= scrollHeight - 10) {
+            if (scrollTop + containerHeight >= scrollHeight - 1) {
                 // Load the next batch of cards
                 this.loadCards();
             }
@@ -72,22 +64,6 @@ import SearchBar from './SearchBar.vue';
     }
     aside .countries .country-card {
         height: 240px;
-    }
-    aside .countries .country-card .country-card__text{
-        background: linear-gradient(90deg, rgba(22, 13, 58, 0.85),rgba(255, 255, 255, 0));
-    }
-    aside .countries .country-card .country-card__text a{
-        color: aquamarine;
-        border: 1px solid aquamarine;
-        transition: .2s ease-in all;
-        width: 50px;
-        height: 50px;
-    }   
-    aside .countries .country-card .country-card__text a:hover{
-        transform: scale(1.5);
-    }
-    aside .countries .country-card img{
-        filter: brightness(.4);
     }
 
     @media screen and (min-width: 768px) {

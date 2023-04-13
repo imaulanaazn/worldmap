@@ -19,43 +19,11 @@
 <script>
    import SidebarCountry from '../components/SidebarCountry.vue'
    import MapView from '../components/MapView.vue'
-   import { useQuery } from '@vue/apollo-composable'
-   import gql from 'graphql-tag';
-   import { ref, watch } from 'vue'
+   import { ref } from 'vue'
    export default {
 
       setup() {
          const mapScale = ref(1)
-         // const { result} = useQuery(gql`
-         //    query {
-         //       populatedPlace(id:"Q60") {
-         //          name
-         //          population
-         //          latitude
-         //          longitude
-         //          nearbyPopulatedPlaces(radius:10, distanceUnit:MI, types:["CITY"], first:10) {
-         //             totalCount
-         //             edges {
-         //             node {
-         //                id
-         //                name
-         //                population
-         //                distance
-         //             }
-         //             }
-         //             pageInfo {
-         //             startCursor
-         //             endCursor
-         //             hasNextPage
-         //             }
-         //          }
-         //       }
-         //    }
-         // `)
-
-         // watch(result, (newValue) => {
-         //    console.log(newValue)
-         // })
 
          const handleZoom = (operation)=>{
             if(operation === '+'){

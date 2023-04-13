@@ -12,13 +12,13 @@ import { createApolloProvider } from '@vue/apollo-option'
 import VueLazyload from 'vue-lazyload'
 
 const apolloClient = new ApolloClient({
-  uri: 'https://geodb-cities-graphql.p.rapidapi.com/',
-  headers: {
-    'X-RapidAPI-Key': 'edcc300743mshcbf51717b28b971p189912jsnc40500853b8d',
-    'X-RapidAPI-Host': 'geodb-cities-graphql.p.rapidapi.com'
-  },
+  uri: 'https://countries.trevorblades.com/',
   cache: new InMemoryCache()
 })
+// headers: {
+  // 'X-RapidAPI-Key': 'edcc300743mshcbf51717b28b971p189912jsnc40500853b8d',
+  // 'X-RapidAPI-Host': 'geodb-cities-graphql.p.rapidapi.com'
+// },
 
 const app = createApp(App)
 app.provide(DefaultApolloClient, apolloClient)
