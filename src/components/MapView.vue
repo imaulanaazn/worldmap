@@ -1053,7 +1053,7 @@
 
 <script>
    import { ref, onMounted, computed, watch } from 'vue'
-   import {useSearchStore} from '../stores/search'
+   import {useSearchStore} from '../stores/search.js'
 
    export default {
       props: ['mapScale'],

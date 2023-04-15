@@ -10,8 +10,8 @@
 </template>
 
 <script>
-    import cardData from '../data';
-    import {useSearchStore} from '../stores/search'
+    import cardData from '../data.js';
+    import {useSearchStore} from '../stores/search.js'
     import SearchBar from './SearchBar.vue';
     import CountryCard from './CountryCard.vue';
     import {watch, computed, ref} from 'vue';

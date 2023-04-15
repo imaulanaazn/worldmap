@@ -26,9 +26,9 @@
 </template>
 
 <script>
-import { useSearchStore } from '../stores/search'
+import { useSearchStore } from '../stores/search.js'
 import {ref, watch} from 'vue'
-import countries from '../data'
+import countries from '../data.js'
 export default {
     setup(){
         const searchStore = useSearchStore()
