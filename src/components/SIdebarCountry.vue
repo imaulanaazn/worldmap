@@ -30,7 +30,6 @@
                 country.title.toLowerCase() === newValue.toLowerCase()
                 );
             }else{
-                console.log(searchedWord)
                 cards.value = [...cards.value, ...cardData.slice(startIndex, endIndex + 1)];
             }
         });

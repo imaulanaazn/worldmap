@@ -34,6 +34,7 @@ export default {
         const searchStore = useSearchStore()
         const searchedWord =  ref('')
         const activeResult =  ref('');
+
         function search(){
             if(searchedWord.value != activeResult.value){
                 const found = countries.some(country => country.title.toLowerCase() == searchedWord.value.toLowerCase());

@@ -1092,10 +1092,15 @@
                      path.classList.value = ''
                   })
                }
-               console.log(newValue.replace(/\s+/g, ''))
-               console.log(oldValue)
             })
 
+            document.addEventListener('click',(event)=>{
+               const target = event.target
+               if (target.tagName === 'path') {
+                  target.classList.add('active')
+                  searchStore.addSearchedWord(target.getAttribute('title').toLowerCase())
+               }
+            })
 
             document.addEventListener('mousemove', (event) => {
                mouseX.value = event.clientX
