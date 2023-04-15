@@ -1,5 +1,8 @@
 <template>
-    <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto" ref="mapContainer"  v-on:mouseup="mouseup" @mousedown="mousedown" @mousemove="mousemove">
+    <div class="map col-lg-9 col-12 p-md-4 p-3 d-flex align-items-center justify-content-center overflow-auto" ref="mapContainer"  
+      v-on:mouseup="mouseup" 
+      @mousedown="mousedown" 
+      @mousemove="mousemove">
          <svg
          ref="svg" 
          @mousemove="handleMouseMove"
@@ -1041,9 +1044,9 @@
          </svg>
 
          <div v-if="hoveredPathTitle" class="cursor rounded-1 position-fixed" :style="{ top: mouseY + 50 + 'px', left: mouseX  + 'px' }">
-         <p class="py-2 px-4 mb-0 fw-semibold">
-            {{hoveredPathTitle}}
-         </p>
+            <p class="py-2 px-4 mb-0 fw-semibold">
+               {{hoveredPathTitle}}
+            </p>
          </div>
     </div>
 </template>
@@ -1063,6 +1066,7 @@
          let startPosition = [0, 0];
          let delta = [0, 0];
 
+         
          const handleMouseMove = (event) => {
             mouseX.value = event.clientX
             mouseY.value = event.clientY
@@ -1121,9 +1125,12 @@
 </script>
 
 <style scoped>
+   
+   .map{
+      scroll-behavior: smooth;
+   }
    .map:hover{
       cursor: pointer;
-      scroll-behavior: smooth;
    }
    svg{
       transform-origin: top left;
