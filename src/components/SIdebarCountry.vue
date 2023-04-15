@@ -1,12 +1,6 @@
-<script setup>
-import SearchBar from './SearchBar.vue';
-import CountryCard from './CountryCard.vue';
-</script>
-
 <template>
     <aside class="sidebar shadow-medium text-black overflow-y-scroll pb-4" ref="container" @scroll="handleScroll" >
         <SearchBar />
-
         <div class="countries d-flex flex-column flex-md-row flex-lg-column flex-wrap" >
             <div v-for="card in cards" :key="card.countryId" class="country-card w-100 position-relative mt-3 rounded-3 overflow-hidden indonesia">
                 <CountryCard :card="card"/>
@@ -17,13 +11,34 @@ import CountryCard from './CountryCard.vue';
 
 <script>
     import cardData from '../data';
+    import {useSearchStore} from '../stores/search'
+    import SearchBar from './SearchBar.vue';
+    import CountryCard from './CountryCard.vue';
+    import {watch, computed, ref} from 'vue';
 
     export default {
-        data() {
-            return {
-            cards: [],
-            startIndex: 0,
-            endIndex: 2,
+        setup() {
+        const searchStore = useSearchStore();
+        const searchedWord = computed(() => searchStore.searchedWord);
+        const cards = ref([]);
+        const startIndex = 0;
+        const endIndex = 2;
+        
+        watch(searchedWord, (newValue) => {
+            if (newValue) {
+                cards.value = cardData.filter((country) =>
+                country.title.toLowerCase() === newValue.toLowerCase()
+                );
+            }else{
+                console.log(searchedWord)
+                cards.value = [...cards.value, ...cardData.slice(startIndex, endIndex + 1)];
+            }
+        });
+        
+        return {
+            cards,
+            startIndex,
+            endIndex,
             };
         },
         created() {
@@ -52,6 +67,10 @@ import CountryCard from './CountryCard.vue';
             }
             },
         },
+        components: {
+            SearchBar: SearchBar,
+            CountryCard: CountryCard
+        }
     }
 </script>
 
