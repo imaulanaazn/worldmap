@@ -1052,7 +1052,8 @@
 </template>
 
 <script>
-   import { ref, onMounted, computed } from 'vue'
+   import { ref, onMounted, computed, watch } from 'vue'
+   import {useSearchStore} from '../stores/search'
 
    export default {
       props: ['mapScale'],
@@ -1065,8 +1066,9 @@
          let isDragging = false;
          let startPosition = [0, 0];
          let delta = [0, 0];
+         const searchStore = useSearchStore();
+         const searchedWord = computed(() => searchStore.searchedWord);
 
-         
          const handleMouseMove = (event) => {
             mouseX.value = event.clientX
             mouseY.value = event.clientY
@@ -1079,6 +1081,22 @@
          }
 
          onMounted(() => {
+
+            watch(searchedWord, (newValue,oldValue)=>{
+               if(newValue){
+                  svg.value.childNodes.forEach((path) => {
+                     path.attributes.title.value.replace(/\s+/g, '').toLowerCase() == newValue.replace(/\s+/g, '').toLowerCase() ? path.classList.value = 'active' : path.classList.value = ''
+                  })
+               }else if(!newValue && oldValue){
+                  svg.value.childNodes.forEach((path) => {
+                     path.classList.value = ''
+                  })
+               }
+               console.log(newValue.replace(/\s+/g, ''))
+               console.log(oldValue)
+            })
+
+
             document.addEventListener('mousemove', (event) => {
                mouseX.value = event.clientX
                mouseY.value = event.clientY
@@ -1118,7 +1136,7 @@
             mouseY,
             svg,
             hoveredPathTitle : computed(() => state.value),
-            handleMouseMove,
+            handleMouseMove
          }
       },
    }
@@ -1145,6 +1163,9 @@
       cursor: pointer;
       stroke: var(--primary-color);
       stroke-width: 0.5px;
+   }
+   svg path.active{
+      fill: var(--secondary-color);
    }
    .cursor {
       transform: translateX(-50%);
