@@ -67,8 +67,8 @@
             },
         },
         components: {
-            SearchBar: SearchBar,
-            CountryCard: CountryCard
+            SearchBar,
+            CountryCard
         }
     }
 </script>
