@@ -12,8 +12,8 @@
 <script>
     import cardData from '../data.js';
     import {useSearchStore} from '../stores/search.js'
-    import SearchBar from './SearchBar.vue';
-    import CountryCard from './CountryCard.vue';
+    import SearchBar from '../components/SearchBar.vue';
+    import CountryCard from '../components/CountryCard.vue';
     import {watch, computed, ref} from 'vue';
 
     export default {

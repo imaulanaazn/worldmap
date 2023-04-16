@@ -17,11 +17,10 @@
 </template>
 
 <script>
-   import SidebarCountry from '../components/SidebarCountry.vue'
+   import SidebarCountry from './SidebarCountry.vue'
    import MapView from '../components/MapView.vue'
    import { ref } from 'vue'
    export default {
-
       components: {
          SidebarCountry,
          MapView
