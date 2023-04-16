@@ -17,6 +17,10 @@
     import {watch, computed, ref} from 'vue';
 
     export default {
+        components: {
+            SearchBar,
+            CountryCard
+        },
         setup() {
         const searchStore = useSearchStore();
         const searchedWord = computed(() => searchStore.searchedWord);
@@ -65,10 +69,6 @@
                 this.loadCards();
             }
             },
-        },
-        components: {
-            SearchBar,
-            CountryCard
         }
     }
 </script>

@@ -22,6 +22,10 @@
    import { ref } from 'vue'
    export default {
 
+      components: {
+         SidebarCountry,
+         MapView
+      },
       setup() {
          const mapScale = ref(1)
 
@@ -37,10 +41,6 @@
             handleZoom,
             mapScale
          }
-      },
-      components: {
-         SidebarCountry,
-         MapView
       },
    }
 </script>
