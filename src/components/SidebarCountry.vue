@@ -74,7 +74,7 @@
 
 <style scoped>
     aside{
-        height: auto;
+        height: 100vh;
     }
     aside .countries{
         gap: 2%;
@@ -89,9 +89,6 @@
         }
     }
     @media screen and (min-width: 1024px) {
-        aside{
-            height: 100vh;
-        }
         .countries .country-card{
             width: 100% !important;
         }
