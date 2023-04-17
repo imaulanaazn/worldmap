@@ -1142,6 +1142,7 @@
    
    .map{
       scroll-behavior: smooth;
+      height: 90vh;
    }
    .map:hover{
       cursor: pointer;
@@ -1168,5 +1169,11 @@
       color: aquamarine;
       background-color: var(--secondary-color);
       z-index: 9999;
+   }
+
+   @media screen and (min-width: 1024px) {
+      .map{
+         height: auto;
+      }
    }
 </style>

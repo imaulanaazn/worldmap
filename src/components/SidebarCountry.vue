@@ -26,7 +26,7 @@
         const searchedWord = computed(() => searchStore.searchedWord);
         const cards = ref([]);
         const startIndex = 0;
-        const endIndex = 2;
+        const endIndex = 4;
         
         watch(searchedWord, (newValue) => {
             if (newValue) {

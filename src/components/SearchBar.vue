@@ -41,7 +41,6 @@ export default {
         }
 
         function search(){
-            if(searchedWord.value != activeResult.value){
                 const found = countries.some(country => country.title.toLowerCase() == searchedWord.value.toLowerCase());
                 if(!found){
                     alert('there is no such country')
@@ -49,9 +48,6 @@ export default {
                     setSearchStore()
                     activeResult.value = searchedWord.value
                 }
-            }else{
-                setSearchStore()
-            }
         }
 
         function setActive(result) {

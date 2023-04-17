@@ -1060,11 +1060,6 @@ const countries = [
         "img": "https://images.pexels.com/photos/14321825/pexels-photo-14321825.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
     },
     {
-        "title": "Saint Martin",
-        "countryId": "SX",
-        "img": "https://images.pexels.com/photos/5091752/pexels-photo-5091752.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
-    },
-    {
         "title": "Syria",
         "countryId": "SY",
         "img": "https://images.pexels.com/photos/2004821/pexels-photo-2004821.jpeg?auto=compress&cs=tinysrgb&dpr=1&fit=crop&h=200&w=280"
