@@ -36,25 +36,36 @@ export default {
         const activeResult =  ref('');
         const searchedWordFromState = computed(() => searchStore.searchedWord)
 
+        function setSearchStore(){
+            searchStore.setSearchedWord(searchedWord.value)
+        }
+
         function search(){
             if(searchedWord.value != activeResult.value){
                 const found = countries.some(country => country.title.toLowerCase() == searchedWord.value.toLowerCase());
                 if(!found){
                     alert('there is no such country')
                 }else{
-                    searchStore.setSearchedWord(searchedWord.value)
+                    setSearchStore()
                     activeResult.value = searchedWord.value
                 }
             }else{
-                searchStore.setSearchedWord(searchedWord.value)
+                setSearchStore()
             }
         }
 
         function setActive(result) {
             activeResult.value = result
             searchedWord.value = result
-            searchStore.setSearchedWord(searchedWord.value)
+            setSearchStore()
         }
+
+        watch(searchedWord,()=>{
+            if(!searchedWord.value){
+                searchStore.clearSearchedWord();
+            }
+            setActive(searchedWord.value)
+        })
 
         watch(searchedWordFromState,()=>{
             if(!searchedWordFromState.value){

@@ -1054,95 +1054,86 @@
 <script>
    import { ref, onMounted, computed, watch } from 'vue'
    import {useSearchStore} from '../stores/search.js'
+   
 
    export default {
       props: ['mapScale'],
+
       setup() {
-         const mapContainer = ref(null)
-         const mouseX = ref(0)
-         const mouseY = ref(0)
-         const svg = ref(null)
-         const state = ref('')
-         let isDragging = false;
-         let startPosition = [0, 0];
-         let delta = [0, 0];
-         const searchStore = useSearchStore();
-         const searchedWord = computed(() => searchStore.searchedWord);
+      const mapContainer = ref(null)
+      const mouseX = ref(0)
+      const mouseY = ref(0)
+      const svg = ref(null)
+      const state = ref('')
+      let isDragging = false;
+      let startPosition = [0, 0];
+      let delta = [0, 0];
+      const searchStore = useSearchStore();
+      const searchedWord = computed(() => searchStore.searchedWord.toLowerCase());
+      const svgPaths = computed(() => svg.value.childNodes);
 
-         const handleMouseMove = (event) => {
-            mouseX.value = event.clientX
-            mouseY.value = event.clientY
-            const target = event.target
-            if (target.tagName === 'path' && target.getAttribute('title')) {
-               state.value = target.getAttribute('title')
+      onMounted(() => {
+         watch(searchedWord, (newValue) => {
+            svgPaths.value.forEach((path) => {
+            const pathTitle = path.getAttribute('title').toLowerCase().replace(/\s+/g, '');
+            if (pathTitle === newValue) {
+               path.classList.value = 'active';
             } else {
-               state.value = ''
+               path.classList.value = '';
             }
+            });
+         });
+      });
+
+      const handleMouseMove = (event) => {
+         mouseX.value = event.clientX;
+         mouseY.value = event.clientY;
+         const target = event.target;
+         if (target.tagName === 'path' && target.getAttribute('title')) {
+            state.value = target.getAttribute('title');
+         } else {
+            state.value = '';
          }
+      };
 
-         onMounted(() => {
+      const mousedown = (event) => {
+         isDragging = true;
+         startPosition = [event.clientX, event.clientY];
+      };
+               
+      const mouseup = () => {
+         isDragging = false;
+      };
 
-            watch(searchedWord, (newValue,oldValue)=>{
-               if(newValue){
-                  svg.value.childNodes.forEach((path) => {
-                     path.attributes.title.value.replace(/\s+/g, '').toLowerCase() == newValue.replace(/\s+/g, '').toLowerCase() ? path.classList.value = 'active' : path.classList.value = ''
-                  })
-               }else if(!newValue && oldValue){
-                  svg.value.childNodes.forEach((path) => {
-                     path.classList.value = ''
-                  })
-               }
-            })
-
-            document.addEventListener('click',(event)=>{
-               const target = event.target
-               if (target.tagName === 'path') {
-                  target.classList.add('active')
-                  searchStore.setSearchedWord(target.getAttribute('title').toLowerCase())
-               }
-            })
-
-            document.addEventListener('mousemove', (event) => {
-               mouseX.value = event.clientX
-               mouseY.value = event.clientY
-               const target = event.target
-               if (target.tagName === 'path' && target.getAttribute('title')) {
-                  state.value = target.getAttribute('title')
-               } else {
-                  state.value = ''
-               }
-            })
-         })
-
-         function mousedown (event) {
-            isDragging = true;
-            startPosition = [event.clientX, event.clientY];
+      const mousemove = (event) => {
+         if (isDragging) {
+            delta = [event.clientX - startPosition[0], event.pageY - startPosition[1]];
+            mapContainer.value.scrollLeft -= delta[0];
+            mapContainer.value.scrollTop -= delta[1];
+            startPosition = [event.clientX, event.pageY];
          }
-         
-         function mouseup () {
-            isDragging = false;
-         }
+      };
 
-         function mousemove (event) {
-            if (isDragging) {
-               delta = [event.clientX - startPosition[0], event.pageY - startPosition[1]];
-               mapContainer.value.scrollLeft -= delta[0];
-               mapContainer.value.scrollTop -= delta[1];
-               startPosition = [event.clientX, event.pageY];
-            }
+      document.addEventListener('click', (event) => {
+         const target = event.target;
+         if (target.tagName === 'path') {
+            target.classList.add('active');
+            searchStore.setSearchedWord(target.getAttribute('title').toLowerCase());
          }
+      });
 
-         return {
-            mapContainer,
-            mouseup,
-            mousedown,
-            mousemove,
-            mouseX,
-            mouseY,
-            svg,
-            hoveredPathTitle : computed(() => state.value),
-            handleMouseMove
-         }
+      document.addEventListener('mousemove', handleMouseMove);
+
+      return {
+         mapContainer,
+         mouseup,
+         mousedown,
+         mousemove,
+         mouseX,
+         mouseY,
+         svg,
+         hoveredPathTitle: computed(() => state.value),
+      };
       },
    }
 </script>
