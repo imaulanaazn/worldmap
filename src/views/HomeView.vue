@@ -17,7 +17,7 @@
 </template>
 
 <script>
-   import SidebarCountry from './SidebarCountry.vue'
+   import SidebarCountry from '../components/SidebarCountry.vue'
    import MapView from '../components/MapView.vue'
    import { ref } from 'vue'
    export default {
