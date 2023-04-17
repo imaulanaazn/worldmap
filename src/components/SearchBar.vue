@@ -27,13 +27,14 @@
 
 <script>
 import { useSearchStore } from '../stores/search.js'
-import {ref, watch} from 'vue'
+import {ref, watch, computed} from 'vue'
 import countries from '../data.js'
 export default {
     setup(){
         const searchStore = useSearchStore()
         const searchedWord =  ref('')
         const activeResult =  ref('');
+        const searchedWordFromState = computed(() => searchStore.searchedWord)
 
         function search(){
             if(searchedWord.value != activeResult.value){
@@ -41,24 +42,25 @@ export default {
                 if(!found){
                     alert('there is no such country')
                 }else{
-                    searchStore.addSearchedWord(searchedWord.value)
+                    searchStore.setSearchedWord(searchedWord.value)
                     activeResult.value = searchedWord.value
                 }
             }else{
-                searchStore.addSearchedWord(searchedWord.value)
+                searchStore.setSearchedWord(searchedWord.value)
             }
         }
 
         function setActive(result) {
             activeResult.value = result
             searchedWord.value = result
-            searchStore.addSearchedWord(searchedWord.value)
+            searchStore.setSearchedWord(searchedWord.value)
         }
 
-        watch(searchedWord,()=>{
-            if(!searchedWord.value){
+        watch(searchedWordFromState,()=>{
+            if(!searchedWordFromState.value){
                 searchStore.clearSearchedWord();
             }
+            setActive(searchedWordFromState.value)
         })
 
         return{

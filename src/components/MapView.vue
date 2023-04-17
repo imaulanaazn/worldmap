@@ -1098,7 +1098,7 @@
                const target = event.target
                if (target.tagName === 'path') {
                   target.classList.add('active')
-                  searchStore.addSearchedWord(target.getAttribute('title').toLowerCase())
+                  searchStore.setSearchedWord(target.getAttribute('title').toLowerCase())
                }
             })
 

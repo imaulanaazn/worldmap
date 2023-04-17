@@ -5,7 +5,7 @@ export const useSearchStore = defineStore('search', {
     searchedWord: ''
   }),
   actions: {
-    addSearchedWord(searchedWord) {
+    setSearchedWord(searchedWord) {
       this.searchedWord = searchedWord
     },
     clearSearchedWord() {
